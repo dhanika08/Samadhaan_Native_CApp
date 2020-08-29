@@ -10,7 +10,6 @@ class Auth {
   FirebaseUser user;
   final databaseReference = Firestore.instance;
 
-
   Future<bool> signInWithGoogle() async {
     try {
       GoogleSignInAccount googleAccount;
@@ -41,17 +40,18 @@ class Auth {
     }
   }
 
-  Future<bool> signIn(String email,String password) async {
+  Future<bool> signIn(String email, String password) async {
     try {
-        AuthResult result = await _auth.signInWithEmailAndPassword(email: email, password: password);
-        print('result $result');
-        if (result.user == null) {
-          return false;
-        } else {
-          user = result.user;
-          print('user ${user.uid}');
-          return true;
-        }
+      AuthResult result = await _auth.signInWithEmailAndPassword(
+          email: email, password: password);
+      print('result $result');
+      if (result.user == null) {
+        return false;
+      } else {
+        user = result.user;
+        print('user ${user.uid}');
+        return true;
+      }
     } catch (e) {
       print('error logging in!! $e');
       return false;
@@ -59,9 +59,10 @@ class Auth {
   }
 
   Future<bool> signOut() async {
-     final pref = await SharedPreferences.getInstance();
+    final pref = await SharedPreferences.getInstance();
     try {
-      final displayname =await  _auth.currentUser().then((value) => value.displayName);
+      final displayname =
+          await _auth.currentUser().then((value) => value.displayName);
       print('$displayname Signed out');
       await googleSignIn.signOut();
       await _auth.signOut();
@@ -78,13 +79,10 @@ class Auth {
       return _auth.currentUser().then((value) async {
         var i = await _auth.fetchSignInMethodsForEmail(email: value.email);
         print(i);
-        if(i[0] == 'google.com')
-        {
+        if (i[0] == 'google.com') {
           print('google wala');
           return 'google';
-        }
-        else if(i[0]=="password")
-        {
+        } else if (i[0] == "password") {
           print('admin sahab');
           return 'admin';
         }
@@ -94,78 +92,37 @@ class Auth {
     }
   }
 
-
-  Future<bool> checkuserInfo() async{
-  final pref = await SharedPreferences.getInstance();
-  final fbm = FirebaseMessaging();
-  var token = await fbm.getToken();
-      final uid = await _auth.currentUser().then((value) => value.uid);
-      try {
-        final result = await databaseReference
+  Future<bool> checkuserInfo() async {
+    final pref = await SharedPreferences.getInstance();
+    final fbm = FirebaseMessaging();
+    var token = await fbm.getToken();
+    final uid = await _auth.currentUser().then((value) => value.uid);
+    try {
+      final result = await databaseReference
           .collection('Users')
           .document(uid)
           .get()
-          .then((doc) 
-          {
-              if (doc.exists) {
-                var city = doc['city'];
-                pref.setString("city", city);
-                pref.setString("token", token);
-                pref.setString("name", doc['name']);
-                print('token $token');
-                print('city set $city');
-                return true;
-            } else {
-
-                return false;
-            }
-  
-          });
-          if(result)
-          {
-            return true;
-          }
-          else
-          {
-            return false;
-          }
-      }
-      catch(e){
-        print(e);
+          .then((doc) {
+        if (doc.exists) {
+          var city = doc['city'];
+          pref.setString("city", city);
+          pref.setString("token", token);
+          pref.setString("name", doc['name']);
+          print('token $token');
+          print('city set $city');
+          return true;
+        } else {
+          return false;
+        }
+      });
+      if (result) {
+        return true;
+      } else {
         return false;
       }
-      
-          
-          // return false;
+    } catch (e) {
+      print(e);
+      return false;
+    }
   }
-
-  // Future<bool> updateUserInfo() async {
-  //   final uid = await FirebaseAuth.instance.currentUser().then((value) => value.uid);
-  //     final result = await databaseReference
-  //         .collection('Haryana/1/Palwal/Users/userid')
-  //         .document(uid).setData(data)
-  //         .get()
-  //         .then((doc) 
-  //         {
-
-  //             if (doc.exists) {
-
-  //               return true;
-  //           } else {
-
-  //               return false;
-  //           }
-  
-  //         });
-  //         if(result)
-  //         {
-  //           return true;
-  //         }
-  //         else
-  //         {
-  //           return false;
-  //         }
-  // }
-
 }
-          

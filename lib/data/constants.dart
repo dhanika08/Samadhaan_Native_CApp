@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:velocity_x/velocity_x.dart';
 
 List<String> depts = [
   "None",
@@ -37,12 +36,12 @@ List<String> getcities(state) {
     return constituencies;
   }
   if (state == "Delhi") {
-    var constituencies = ["None","Rkpuram"];
+    var constituencies = ["None", "Rkpuram"];
     return constituencies;
-  }
-  else
-  {
-    var constituencies = ["None",];
+  } else {
+    var constituencies = [
+      "None",
+    ];
     return constituencies;
   }
 }

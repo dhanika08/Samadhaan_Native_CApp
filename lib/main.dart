@@ -12,13 +12,14 @@ import 'package:faridabad/screens/showcomplaint.dart';
 import 'package:faridabad/screens/splash_screen.dart';
 import 'package:faridabad/screens/user_info.dart';
 import 'package:flutter/material.dart';
+import 'package:faridabad/screens/user.dart';
 
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  static const routeName  = '/myapp';
+  static const routeName = '/myapp';
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -38,11 +39,12 @@ class MyApp extends StatelessWidget {
         ShowComplaint.routeName: (ctx) => ShowComplaint(),
         FileComplaint.routeName: (ctx) => FileComplaint(),
         Base.routeName: (ctx) => Base(),
-        PreviousComplanints.routeName : (ctx) => PreviousComplanints(),
-        AdminScreen.routename : (ctx) => AdminScreen(),
-        AdminApp.routeName : (ctx) => AdminApp(),
-        ComplaintDetails.routeName : (ctx) => ComplaintDetails(),
-        AdminUi.routeName : (ctx) => AdminUi(),
+        PreviousComplanints.routeName: (ctx) => PreviousComplanints(),
+        AdminScreen.routename: (ctx) => AdminScreen(),
+        AdminApp.routeName: (ctx) => AdminApp(),
+        ComplaintDetails.routeName: (ctx) => ComplaintDetails(),
+        AdminUi.routeName: (ctx) => AdminUi(),
+        User.routeName: (ctx) => User(),
       },
     );
   }

@@ -48,13 +48,6 @@ class _HomeScreenState extends State<HomeScreen> {
       // backgroundColor: ,
       key: _scaffoldKey,
       body: Container(
-        // decoration: BoxDecoration(
-        //   gradient: LinearGradient(
-        //     colors: [Colors.black12, Colors.white],
-        //      begin: Alignment.topCenter,
-        //      end: Alignment.bottomCenter
-        //   ),
-        // ),
         child: Stack(
           children: <Widget>[
             Center(
@@ -190,8 +183,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                   final result =
                                       await Auth().signIn(email, password);
                                   if (result) {
-                                    Navigator.of(context)
-                                        .pushReplacementNamed(AdminUi.routeName);
+                                    Navigator.of(context).pushReplacementNamed(
+                                        AdminUi.routeName);
                                   } else {
                                     _scaffoldKey.currentState.showSnackBar(
                                       SnackBar(
